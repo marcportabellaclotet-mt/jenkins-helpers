@@ -1,0 +1,12 @@
+example-service:
+  owner: owner
+  group_owner: group-owner
+  allowed_users:
+    - allowed-user
+  allowed_ro_users:
+    - allowed-ro-user
+  allowed_groups:
+    - allowed-group
+  folder_properties:
+    FOLDER_PROPERTY: 'some value'
+      

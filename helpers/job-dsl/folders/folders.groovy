@@ -95,9 +95,9 @@ yamlFiles.each { file ->
             }
           }
           if ( serviceConfig.allowed_ro_users.find() ) {
-            serviceConfig.allowed_ro_users.each{allowed_gh_ro_users->
-              permission("hudson.model.Item.Read:${allowed_gh_ro_users}")
-              permission("hudson.model.View.Read:${allowed_gh_ro_users}")
+            serviceConfig.allowed_ro_users.each{allowed_ro_users->
+              permission("hudson.model.Item.Read:${allowed_ro_users}")
+              permission("hudson.model.View.Read:${allowed_ro_users}")
             }
           }
           if ( serviceConfig.group_owner.find() ) {

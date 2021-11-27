@@ -34,24 +34,24 @@ hudson.FilePath workspace = hudson.model.Executor.currentExecutor().getCurrentWo
 cwd = hudson.model.Executor.currentExecutor().getCurrentWorkspace().absolutize()
 yamlFiles = new FilePath(cwd, FOLDERS_YAML_PATH).list('*.yaml')
 
-yamlFiles.each { file ->
-  servicesList = new Yaml().load(readFileFromWorkspace(file.getRemote()))
-  folder(MAIN_FOLDER) {
-    displayName(MAIN_FOLDER_DESC)
-    description(MAIN_FOLDER_NAME)
-    authorization {
-      if (FOLDER_CONFIG.config.allow_all_auth_users) {
-        permission('hudson.model.Item.Read', 'authenticated')
-      }
-      FOLDER_CONFIG.config.allowed_users.each{allowed_user->
-        permission('hudson.model.Item.Read', allowed_user)
-      }
-      FOLDER_CONFIG.config.allowed_groups.each{allowed_group->
-        permission('hudson.model.Item.Read', allowed_group)
-      }
+folder(MAIN_FOLDER) {
+  displayName(MAIN_FOLDER_DESC)
+  description(MAIN_FOLDER_NAME)
+  authorization {
+    if (FOLDER_CONFIG.config.allow_all_auth_users) {
+      permission('hudson.model.Item.Read', 'authenticated')
+    }
+    FOLDER_CONFIG.config.allowed_users.each{allowed_user->
+      permission('hudson.model.Item.Read', allowed_user)
+    }
+    FOLDER_CONFIG.config.allowed_groups.each{allowed_group->
+      permission('hudson.model.Item.Read', allowed_group)
     }
   }
+}
 
+yamlFiles.each { file ->
+  servicesList = new Yaml().load(readFileFromWorkspace(file.getRemote()))
   servicesList.each{serviceName, serviceConfig->
     folder(MAIN_FOLDER + '/' + serviceName ) {
       displayName(serviceName)

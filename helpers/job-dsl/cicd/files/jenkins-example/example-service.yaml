@@ -23,5 +23,5 @@ example-service:
             description: 'The build of this resources is environment based'
           - type: string
             name: build_branch
-            default_value: master
+            default_value: main
             description: 'Git branch used to run the image build'

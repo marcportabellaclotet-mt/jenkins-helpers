@@ -4,8 +4,9 @@ example-service:
   resources:
     app:
       folder_properties:
-        RESOURCE_NAME: 'app'
+        RESOURCE_NAME: 'prometheus-example-app'
         RESOURCE_BUILD_URL: 'https://github.com/marcportabellaclotet-mt/prometheus-example-app.git'
+        RESOURCE_DEPLOY_URL: 'https://github.com/marcportabellaclotet-mt/prometheus-example-app-deploy.git'
       create_build_job: true
       build_service_repo: 'https://github.com/marcportabellaclotet-mt/jenkins-helpers.git'
       jenkinsfile_build_path: 'helpers/pipelines/cicd/image-build.Jenkinsfile'
@@ -27,14 +28,22 @@ example-service:
       deploy_job_parameters:
         params:
           - type: string
-            name: image_tag
-            default_value: 'latest'
-            description: 'Container image tag that will be deployed'
+            name: replacement_map
+            default_value: ''
+            description: 'Map that contains the desired changes to the helm yaml manifest'
+          - type: string
+            name: deploy_branch
+            default_value: main
+            description: 'Git branch used to update deploy manifests'
+          - type: string
+            name: tag_manifest_path
+            default_value: helm/values/environment/values-tag.yaml
+            description: 'Path of the helm values file where image tag is defined (environment key will be replaced)'
       environments:
         dev:
           folder_properties:
             ENVIRONMENT: dev
-        dev:
+        test:
           folder_properties:
             ENVIRONMENT: test
         prod:

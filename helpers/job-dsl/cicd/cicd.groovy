@@ -26,8 +26,9 @@ if (! CICD_CONFIG_PATH.find()){
 CICD_CONFIG_PATH = "${CICD_YAML_PATH}cicd.config"
 CICD_CONFIG = new Yaml().load(readFileFromWorkspace(CICD_CONFIG_PATH))
 
-MAIN_FOLDER      = CICD_CONFIG.config.main_folder
-CICD_FOLDER_NAME = CICD_CONFIG.config.cicd_folder
+MAIN_FOLDER             = CICD_CONFIG.config.main_folder
+CICD_FOLDER_NAME        = CICD_CONFIG.config.cicd_folder
+CICD_DEPLOY_FOLDER_NAME = CICD_CONFIG.config.cicd_deploy_folder
 
 hudson.FilePath workspace = hudson.model.Executor.currentExecutor().getCurrentWorkspace()
 cwd = hudson.model.Executor.currentExecutor().getCurrentWorkspace().absolutize()
@@ -89,7 +90,7 @@ yamlFiles.each { file ->
           }
         }
       }
-      if (createBuildJob){
+      if (createDeployJob){
         def buildJobName = MAIN_FOLDER + '/' +
                            serviceName + '/' +
                            CICD_FOLDER_NAME + '/' +
@@ -131,6 +132,42 @@ yamlFiles.each { file ->
                 }
               }
               scriptPath(buildJobJenkinsfilePath)
+            }
+          }
+        }
+      }
+      if (createBuildJob){
+        deployJobFolder = MAIN_FOLDER + '/' +
+                          serviceName + '/' +
+                          CICD_FOLDER_NAME + '/' +
+                          resourceName + '/' +
+                          CICD_DEPLOY_FOLDER_NAME
+        folder(deployJobFolder) {
+          displayName(CICD_DEPLOY_FOLDER_NAME)
+          description(CICD_DEPLOY_FOLDER_NAME)
+        }
+        def envList = resourceConfig.environments
+        envList.each{environmentName,environmentConfig->
+          def environmentsFolderProperties = environmentConfig.folder_properties
+          folder(MAIN_FOLDER + '/' +
+                 serviceName + '/' +
+                 CICD_FOLDER_NAME + '/' +
+                 resourceName + '/' +
+                 CICD_DEPLOY_FOLDER_NAME + '/' +
+                 environmentName) {
+            displayName(environmentName)
+            description(environmentName)
+            properties {
+              folderProperties {
+                properties {
+                  environmentsFolderProperties.each {element->
+                    stringProperty {
+                      key(element.key)
+                      value(element.value)
+                    }
+                  }
+                }
+              }
             }
           }
         }

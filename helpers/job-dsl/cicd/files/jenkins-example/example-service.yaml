@@ -13,3 +13,10 @@ example-service:
       jenkinsfile_deploy_branch: main
       jenkinsfile_build_path: 'helpers/cicd/pipelines/image-build.Jenkinsfile'
       jenkinsfile_build_branch: main
+      build_job_parameters:
+        params:
+          - type: choice
+            name: build_environment
+            list: ['staging','production']
+            default_value: staging
+            description: 'The build of this resources is environment based'

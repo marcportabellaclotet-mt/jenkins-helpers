@@ -102,7 +102,7 @@ yamlFiles.each { file ->
           logRotator {
             numToKeep(10)
           }
-          if ( buildJobParameters.find()) {
+          if ( resourceConfig.build_job_parameters.find() ) {
             def buildJobParameters = resourceConfig.build_job_parameters.params
             parameters {
               resourceBuildEnv = []

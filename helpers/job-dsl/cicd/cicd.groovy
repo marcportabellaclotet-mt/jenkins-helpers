@@ -36,7 +36,6 @@ yamlFiles.each { file ->
   servicesList = new Yaml().load(readFileFromWorkspace(file.getRemote()))
   servicesList.each{serviceName, serviceConfig->
     def servicesFolderProperties = serviceConfig.folder_properties
-    def resourceList = serviceConfig.resources
     def deploymentsFolderJob = MAIN_FOLDER + '/' +
                                 serviceName + '/' +
                                 CICD_FOLDER_NAME

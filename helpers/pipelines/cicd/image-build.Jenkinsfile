@@ -1,4 +1,7 @@
 println('Building')
+withFolderProperties {
+  RESOURCE_BUILD_URL = env.RESOURCE_BUILD_URL
+}
 pipeline {
   agent any
   stages {

@@ -7,7 +7,7 @@ example-service:
         RESOURCE_FOLDER_PROPERTY: 'some value'
         RESOURCE_BUILD_URL: 'https://github.com/marcportabellaclotet-mt/cniep.git'
       create_build_job: true
-      build_service_repo: 'https://github.com/marcportabellaclotet-mt/jenkins-helpers.git'
+      build_service_repo: 'https://github.com/marcportabellaclotet-mt/prometheus-example-app.git'
       jenkinsfile_build_path: 'helpers/pipelines/cicd/image-build.Jenkinsfile'
       jenkinsfile_build_branch: main
       create_deploy_job: true
@@ -23,5 +23,5 @@ example-service:
             description: 'The build of this resources is environment based'
           - type: string
             name: build_branch
-            default_value: main
+            default_value: master
             description: 'Git branch used to run the image build'

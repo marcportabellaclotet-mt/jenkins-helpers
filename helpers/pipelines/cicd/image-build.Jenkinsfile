@@ -8,7 +8,7 @@ kind: Pod
 spec:
   containers:
   - name: builder
-    image: busybox:latest
+    image: marcportabellaclotet/kaniko-project:executor-v1.6.0-debug
     command: ['cat']
     tty: true
 '''
@@ -20,7 +20,7 @@ pipeline {
     }
   }
   stages {
-    stage('Hello') {
+    stage('Image Build') {
       steps {
         script {
           container('builder'){
@@ -28,7 +28,15 @@ pipeline {
                 branches: [[name: params.build_branch ]],
                 userRemoteConfigs: [[url: RESOURCE_BUILD_URL ]]
             ])
-            sh ''' find . '''
+            imageDestination = "marcportabellaclotet/prometheus-example-app:test"
+            withCredentials([string(credentialsId: 'dockerauth', variable: 'dockerauth')]) {
+              sh """ echo '{"auths":{"https://index.docker.io/v1/":{"auth":"${dockerauth}"}}}' |tee /kaniko/.docker/config.json """
+            }
+            env.pushResult = sh(script: """
+              /kaniko/executor -f Dockerfile -c . --insecure \
+              --skip-tls-verify --cache=true --log-format=text \
+              --destination=${imageDestination}
+            """, returnStatus: true)
           }
         }
       }

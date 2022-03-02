@@ -170,48 +170,49 @@ yamlFiles.each { file ->
               }
             }
           }
-        }
-        def deployJobParameters = resourceConfig.deploy_job_parameters.params
-        def deployJobName = MAIN_FOLDER + '/' +
-                    serviceName + '/' +
-                    CICD_FOLDER_NAME + '/' +
-                    resourceName + '/' +
-                    CICD_DEPLOY_FOLDER_NAME + '/' +
-                    environmentName + '/Deploy'
-        pipelineJob(deployJobName) {
-          displayName('Deploy')
-          properties {
-            disableConcurrentBuilds()
-          }
-          logRotator {
-            numToKeep(10)
-          }
-          if ( resourceConfig.deploy_job_parameters.find() ) {
-            def buildJobParameters = resourceConfig.deploy_job_parameters.params
-            parameters {
-              resourceBuildEnv = []
-              deployJobParameters.each{param ->
-                if (param.type == "choice") {
-                  choiceParam(param.name , param.list, param.description )
-                }else if (param.type == "string") {
-                  stringParam(param.name , param.default_value , param.description )
-                }else if (param.type == "boolean") {
-                  booleanParam(param.name , param.default_value , param.description )
+
+          def deployJobParameters = resourceConfig.deploy_job_parameters.params
+          def deployJobName = MAIN_FOLDER + '/' +
+                      serviceName + '/' +
+                      CICD_FOLDER_NAME + '/' +
+                      resourceName + '/' +
+                      CICD_DEPLOY_FOLDER_NAME + '/' +
+                      environmentName + '/Deploy'
+          pipelineJob(deployJobName) {
+            displayName('Deploy')
+            properties {
+              disableConcurrentBuilds()
+            }
+            logRotator {
+              numToKeep(10)
+            }
+            if ( resourceConfig.deploy_job_parameters.find() ) {
+              def buildJobParameters = resourceConfig.deploy_job_parameters.params
+              parameters {
+                resourceBuildEnv = []
+                deployJobParameters.each{param ->
+                  if (param.type == "choice") {
+                    choiceParam(param.name , param.list, param.description )
+                  }else if (param.type == "string") {
+                    stringParam(param.name , param.default_value , param.description )
+                  }else if (param.type == "boolean") {
+                    booleanParam(param.name , param.default_value , param.description )
+                  }
                 }
               }
             }
-          }
-          definition {
-            cpsScm {
-              scm {
-                git {
-                  remote {
-                    url(deployServiceRepoURL)
-                    }
-                  branches(deployJobJenkinsfileBranch)
+            definition {
+              cpsScm {
+                scm {
+                  git {
+                    remote {
+                      url(deployServiceRepoURL)
+                      }
+                    branches(deployJobJenkinsfileBranch)
+                  }
                 }
+                scriptPath(deployJobJenkinsfilePath)
               }
-              scriptPath(deployJobJenkinsfilePath)
             }
           }
         }

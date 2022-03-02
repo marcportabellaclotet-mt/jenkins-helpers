@@ -34,4 +34,8 @@ pipeline {
       }
     }
   }
+  options {
+    disableConcurrentBuilds()
+    skipDefaultCheckout()
+  }
 }

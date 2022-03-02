@@ -16,11 +16,10 @@ example-service:
       jenkinsfile_deploy_branch: main
       build_job_parameters:
         params:
-          - type: choice
-            name: build_environment
-            list: ['staging','production']
-            default_value: staging
-            description: 'The build of this resources is environment based'
+          - type: string
+            name: image_tag
+            default_value: latest
+            description: 'container image will ne labeled with this tag'
           - type: string
             name: build_branch
             default_value: main

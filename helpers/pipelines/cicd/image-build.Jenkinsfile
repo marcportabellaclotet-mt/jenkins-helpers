@@ -1,4 +1,3 @@
-println('Building')
 withFolderProperties {
   RESOURCE_BUILD_URL = env.RESOURCE_BUILD_URL
 }
@@ -28,7 +27,7 @@ pipeline {
                 branches: [[name: params.build_branch ]],
                 userRemoteConfigs: [[url: RESOURCE_BUILD_URL ]]
             ])
-            imageDestination = "marcportabellaclotet/prometheus-example-app:test"
+            imageDestination = "marcportabellaclotet/prometheus-example-app:${params.tag}"
             withCredentials([string(credentialsId: 'dockerauth', variable: 'dockerauth')]) {
               sh """ echo '{"auths":{"https://index.docker.io/v1/":{"auth":"${dockerauth}"}}}' |tee /kaniko/.docker/config.json """
             }

@@ -11,7 +11,7 @@ example-service:
       build_service_repo: 'https://github.com/marcportabellaclotet-mt/jenkins-helpers.git'
       jenkinsfile_deploy_path: 'helpers/cicd/pipelines/argo-deploy.Jenkinsfile'
       jenkinsfile_deploy_branch: main
-      jenkinsfile_build_path: 'helpers/cicd/pipelines/image-build.Jenkinsfile'
+      jenkinsfile_build_path: 'helpers/pipelines/cicd/image-build.Jenkinsfile'
       jenkinsfile_build_branch: main
       build_job_parameters:
         params:

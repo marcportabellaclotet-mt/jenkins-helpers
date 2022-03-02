@@ -1,4 +1,4 @@
-example-service:
+prometheus-example-app:
   owner: owner
   group_owner: group-owner
   allowed_users:
@@ -9,4 +9,3 @@ example-service:
     - allowed-group
   folder_properties:
     FOLDER_PROPERTY: 'some value'
-      

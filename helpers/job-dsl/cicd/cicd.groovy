@@ -89,7 +89,53 @@ yamlFiles.each { file ->
           }
         }
       }
-
+      if (createBuildJob){
+        def buildJobParameters = resourceConfig.build_job_parameters.params
+        def buildJobName = MAIN_FOLDER + '/' +
+                           serviceName + '/' +
+                           CICD_FOLDER_NAME + '/' +
+                           resourceName + '/Build'
+        pipelineJob(buildJobName) {
+          displayName('Build')
+          properties {
+            disableConcurrentBuilds()
+          }
+          logRotator {
+            numToKeep(10)
+          }
+          if ( buildJobParameters.find()) {
+            parameters {
+              resourceBuildEnv = []
+              buildJobParameters.each{param ->
+                if (param.type == "choice") {
+                  choiceParam(param.name , param.list, param.description )
+                  if ( param.name == "build_environment"){
+                    resourceBuildEnv = param.list
+                  }
+                }else if (param.type == "string") {
+                  stringParam(param.name , param.default_value , param.description )
+                }else if (param.type == "boolean") {
+                  booleanParam(param.name , param.default_value , param.description )
+                }
+              }
+            }
+          }
+          definition {
+            cpsScm {
+              scm {
+                git {
+                  remote {
+                    url(buildServiceRepoURL)
+                      credentials('githubJenkinsUSerToken')
+                    }
+                  branches(buildJobJenkinsfileBranch)
+                }
+              }
+              scriptPath(buildJobJenkinsfilePath)
+            }
+          }
+        }
+      }
     }
   }
 }

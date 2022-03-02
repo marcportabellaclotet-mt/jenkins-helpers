@@ -1,4 +1,4 @@
-prometheus-example-app:
+example-service:
   folder_properties:
     SERVICE_FOLDER_PROPERTY: 'some value'
   resources:

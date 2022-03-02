@@ -1,4 +1,4 @@
-prometheus-example-app:
+example-service:
   owner: owner
   group_owner: group-owner
   allowed_users:

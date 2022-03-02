@@ -34,3 +34,9 @@ example-service:
         dev:
           folder_properties:
             ENVIRONMENT: dev
+        dev:
+          folder_properties:
+            ENVIRONMENT: test
+        prod:
+          folder_properties:
+            ENVIRONMENT: prod

@@ -1,10 +1,10 @@
 example-service:
   folder_properties:
-    SERVICE_FOLDER_PROPERTY: 'some value'
+    SERVICE_NAME: 'example-service'
   resources:
     app:
       folder_properties:
-        RESOURCE_FOLDER_PROPERTY: 'some value'
+        RESOURCE_NAME: 'app'
         RESOURCE_BUILD_URL: 'https://github.com/marcportabellaclotet-mt/prometheus-example-app.git'
       create_build_job: true
       build_service_repo: 'https://github.com/marcportabellaclotet-mt/jenkins-helpers.git'
@@ -12,7 +12,7 @@ example-service:
       jenkinsfile_build_branch: main
       create_deploy_job: true
       deploy_service_repo: 'https://github.com/marcportabellaclotet-mt/jenkins-helpers.git'
-      jenkinsfile_deploy_path: 'helpers/cicd/pipelines/argo-deploy.Jenkinsfile'
+      jenkinsfile_deploy_path: 'helpers/pipelines/cicd/argo-deploy.Jenkinsfile'
       jenkinsfile_deploy_branch: main
       build_job_parameters:
         params:

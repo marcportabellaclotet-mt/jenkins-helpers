@@ -2,7 +2,7 @@ withFolderProperties {
   RESOURCE_BUILD_URL = env.RESOURCE_BUILD_URL
 }
 
-def yamldefinition = '''
+podManifest = '''
 kind: Pod
 spec:
   containers:
@@ -15,14 +15,14 @@ spec:
 pipeline {
   agent {
     kubernetes {
-      yaml yamldefinition
+      yaml podManifest
     }
   }
   stages {
     stage('Image Build') {
       steps {
         script {
-          container('builder'){
+          container('builder') {
             checkout([$class: 'GitSCM',
                 branches: [[name: params.build_branch ]],
                 userRemoteConfigs: [[url: RESOURCE_BUILD_URL ]]

@@ -2,7 +2,7 @@ example-service:
   folder_properties:
     SERVICE_NAME: 'example-service'
   resources:
-    app:
+    prometheus-example-app:
       folder_properties:
         RESOURCE_NAME: 'prometheus-example-app'
         RESOURCE_BUILD_URL: 'https://github.com/marcportabellaclotet-mt/prometheus-example-app.git'
@@ -28,16 +28,16 @@ example-service:
       deploy_job_parameters:
         params:
           - type: string
-            name: replacement_map
+            name: json_updates
             default_value: ''
-            description: 'Map that contains the desired changes to the helm yaml manifest'
+            description: 'Json manifest with the desired updates to apply to the helm yaml manifest'
           - type: string
             name: deploy_branch
             default_value: main
             description: 'Git branch used to update deploy manifests'
           - type: string
             name: tag_manifest_path
-            default_value: helm/values/environment/values-tag.yaml
+            default_value: helm/app/helm-values-files/environment/values-tag.yaml
             description: 'Path of the helm values file where image tag is defined (environment key will be replaced)'
       environments:
         dev:

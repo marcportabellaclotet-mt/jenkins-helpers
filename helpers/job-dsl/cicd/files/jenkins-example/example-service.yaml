@@ -5,14 +5,15 @@ example-service:
     app:
       folder_properties:
         RESOURCE_FOLDER_PROPERTY: 'some value'
-      create_deploy_job: true
+        RESOURCE_BUILD_URL: 'https://github.com/marcportabellaclotet-mt/cniep.git'
       create_build_job: true
-      deploy_service_repo: 'https://github.com/marcportabellaclotet-mt/jenkins-helpers.git'
       build_service_repo: 'https://github.com/marcportabellaclotet-mt/jenkins-helpers.git'
-      jenkinsfile_deploy_path: 'helpers/cicd/pipelines/argo-deploy.Jenkinsfile'
-      jenkinsfile_deploy_branch: main
       jenkinsfile_build_path: 'helpers/pipelines/cicd/image-build.Jenkinsfile'
       jenkinsfile_build_branch: main
+      create_deploy_job: true
+      deploy_service_repo: 'https://github.com/marcportabellaclotet-mt/jenkins-helpers.git'
+      jenkinsfile_deploy_path: 'helpers/cicd/pipelines/argo-deploy.Jenkinsfile'
+      jenkinsfile_deploy_branch: main
       build_job_parameters:
         params:
           - type: choice
@@ -20,3 +21,7 @@ example-service:
             list: ['staging','production']
             default_value: staging
             description: 'The build of this resources is environment based'
+          - type: string
+            name: build_branch
+            default_value: main
+            description: 'Git branch used to run the image build'

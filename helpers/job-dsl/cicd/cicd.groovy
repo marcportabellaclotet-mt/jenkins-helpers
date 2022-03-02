@@ -90,7 +90,6 @@ yamlFiles.each { file ->
         }
       }
       if (createBuildJob){
-        def buildJobParameters = resourceConfig.build_job_parameters.params
         def buildJobName = MAIN_FOLDER + '/' +
                            serviceName + '/' +
                            CICD_FOLDER_NAME + '/' +
@@ -104,6 +103,7 @@ yamlFiles.each { file ->
             numToKeep(10)
           }
           if ( buildJobParameters.find()) {
+            def buildJobParameters = resourceConfig.build_job_parameters.params
             parameters {
               resourceBuildEnv = []
               buildJobParameters.each{param ->

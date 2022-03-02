@@ -126,7 +126,6 @@ yamlFiles.each { file ->
                 git {
                   remote {
                     url(buildServiceRepoURL)
-                      credentials('githubJenkinsUSerToken')
                     }
                   branches(buildJobJenkinsfileBranch)
                 }

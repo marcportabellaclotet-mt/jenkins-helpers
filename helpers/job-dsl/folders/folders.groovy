@@ -4,25 +4,25 @@ import groovy.io.FileType
 import hudson.FilePath
 import jenkins.model.Jenkins
 
-instance = Jenkins.getInstance()
-globalNodeProperties = instance.getGlobalNodeProperties()
-envVarsNodePropertyList = globalNodeProperties.getAll(hudson.slaves.EnvironmentVariablesNodeProperty.class)
-envVars = envVarsNodePropertyList.get(0).getEnvVars()
+//instance = Jenkins.getInstance()
+//globalNodeProperties = instance.getGlobalNodeProperties()
+//envVarsNodePropertyList = globalNodeProperties.getAll(hudson.slaves.EnvironmentVariablesNodeProperty.class)
+//envVars = envVarsNodePropertyList.get(0).getEnvVars()
 
-JENKINS_SERVER_NAME = InetAddress.localHost.canonicalHostName
-FOLDERS_CONFIG_PATH = envVars['folders_config_path']
-if (! FOLDERS_CONFIG_PATH.find()){
-  println "------ INFO ------"
-  println "Enviroment variable [folders_config_path] not defined."
-  println "You can define this value in jenkins global properties | environment variables"
-  println "Using default value (helpers/job-dsl/services/folders/files/${JENKINS_SERVER_NAME}/)."
-  println "------------------"
-  FOLDERS_YAML_PATH = "helpers/job-dsl/folders/files/${JENKINS_SERVER_NAME}/"
-} else {
-  FOLDERS_YAML_PATH = "${FOLDERS_CONFIG_PATH}/"
-  println "Using Service Folders Yaml Path : ${FOLDERS_YAML_PATH}/"
-}
-
+//JENKINS_SERVER_NAME = InetAddress.localHost.canonicalHostName
+//FOLDERS_CONFIG_PATH = envVars['folders_config_path']
+//if (! FOLDERS_CONFIG_PATH.find()){
+//  println "------ INFO ------"
+//  println "Enviroment variable [folders_config_path] not defined."
+//  println "You can define this value in jenkins global properties | environment variables"
+//  println "Using default value (helpers/job-dsl/services/folders/files/${JENKINS_SERVER_NAME}/)."
+//  println "------------------"
+//  FOLDERS_YAML_PATH = "helpers/job-dsl/folders/files/${JENKINS_SERVER_NAME}/"
+//} else {
+//  FOLDERS_YAML_PATH = "${FOLDERS_CONFIG_PATH}/"
+//  println "Using Service Folders Yaml Path : ${FOLDERS_YAML_PATH}/"
+//}
+FOLDERS_YAML_PATH = "helpers/job-dsl/folders/files/jenkins-example/"
 FOLDERS_CONFIG_PATH = "${FOLDERS_YAML_PATH}folders.config"
 FOLDER_CONFIG = new Yaml().load(readFileFromWorkspace(FOLDERS_CONFIG_PATH))
 

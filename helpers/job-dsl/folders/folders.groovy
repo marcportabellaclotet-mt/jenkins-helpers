@@ -39,13 +39,13 @@ folder(MAIN_FOLDER) {
   description(MAIN_FOLDER_NAME)
   authorization {
     if (FOLDER_CONFIG.config.allow_all_auth_users) {
-      permission('GROUP:hudson.model.Item.Read', 'authenticated')
+      groupPermission('hudson.model.Item.Read', 'authenticated')
     }
     FOLDER_CONFIG.config.allowed_users.each{allowed_user->
-      permission('GROUP:hudson.model.Item.Read', allowed_user)
+      groupPermission('hudson.model.Item.Read', allowed_user)
     }
     FOLDER_CONFIG.config.allowed_groups.each{allowed_group->
-      permission('GROUP:hudson.model.Item.Read', allowed_group)
+      groupPermission('hudson.model.Item.Read', allowed_group)
     }
   }
 }

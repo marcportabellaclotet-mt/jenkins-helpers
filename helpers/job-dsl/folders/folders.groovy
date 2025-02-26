@@ -39,13 +39,13 @@ folder(MAIN_FOLDER) {
   description(MAIN_FOLDER_NAME)
   authorization {
     if (FOLDER_CONFIG.config.allow_all_auth_users) {
-      permission('hudson.model.Item.Read', 'authenticated')
+      permission('GROUP:hudson.model.Item.Read', 'authenticated')
     }
     FOLDER_CONFIG.config.allowed_users.each{allowed_user->
-      permission('hudson.model.Item.Read', allowed_user)
+      permission('GROUP:hudson.model.Item.Read', allowed_user)
     }
     FOLDER_CONFIG.config.allowed_groups.each{allowed_group->
-      permission('hudson.model.Item.Read', allowed_group)
+      permission('GROUP:hudson.model.Item.Read', allowed_group)
     }
   }
 }
@@ -82,37 +82,37 @@ yamlFiles.each { file ->
           if ( serviceConfig.owner.find() ) {
                 permission("GROUP:hudson.model.Item.Build:${serviceConfig.owner}")
                 permission("GROUP:hudson.model.Item.Read:${serviceConfig.owner}")
-                permission("USER:hudson.model.Item.Cancel:${serviceConfig.owner}")
-                permission("hudson.model.View.Read:${serviceConfig.owner}")
-                permission("hudson.model.Item.Configure:${serviceConfig.owner}")
+                permission("GROUP:hudson.model.Item.Cancel:${serviceConfig.owner}")
+                permission("GROUP:hudson.model.View.Read:${serviceConfig.owner}")
+                permission("GROUP:hudson.model.Item.Configure:${serviceConfig.owner}")
               }
           if ( serviceConfig.allowed_users.find() ) {
             serviceConfig.allowed_users.each{allowed_users->
-              permission("hudson.model.Item.Build:${allowed_users}")
-              permission("hudson.model.Item.Read:${allowed_users}")
-              permission("hudson.model.Item.Cancel:${allowed_users}")
-              permission("hudson.model.View.Read:${allowed_users}")
+              permission("GROUP:hudson.model.Item.Build:${allowed_users}")
+              permission("GROUP:hudson.model.Item.Read:${allowed_users}")
+              permission("GROUP:hudson.model.Item.Cancel:${allowed_users}")
+              permission("GROUP:hudson.model.View.Read:${allowed_users}")
             }
           }
           if ( serviceConfig.allowed_ro_users.find() ) {
             serviceConfig.allowed_ro_users.each{allowed_ro_users->
-              permission("hudson.model.Item.Read:${allowed_ro_users}")
-              permission("hudson.model.View.Read:${allowed_ro_users}")
+              permission("GROUP:hudson.model.Item.Read:${allowed_ro_users}")
+              permission("GROUP:hudson.model.View.Read:${allowed_ro_users}")
             }
           }
           if ( serviceConfig.group_owner.find() ) {
-            permission("hudson.model.Item.Build:${serviceConfig.group_owner}")
-            permission("hudson.model.Item.Read:${serviceConfig.group_owner}")
-            permission("hudson.model.Item.Cancel:${serviceConfig.group_owner}")
-            permission("hudson.model.View.Read:${serviceConfig.group_owner}")
-            permission("hudson.model.Item.Configure:${serviceConfig.group_owner}")
+            permission("GROUP:hudson.model.Item.Build:${serviceConfig.group_owner}")
+            permission("GROUP:hudson.model.Item.Read:${serviceConfig.group_owner}")
+            permission("GROUP:hudson.model.Item.Cancel:${serviceConfig.group_owner}")
+            permission("GROUP:hudson.model.View.Read:${serviceConfig.group_owner}")
+            permission("GROUP:hudson.model.Item.Configure:${serviceConfig.group_owner}")
           }
           if ( serviceConfig.allowed_groups.find() ) {
             serviceConfig.allowed_groups.each{allowed_group->
-              permission("hudson.model.Item.Build:${allowed_group}")
-              permission("hudson.model.Item.Read:${allowed_group}")
-              permission("hudson.model.Item.Cancel:${allowed_group}")
-              permission("hudson.model.View.Read:${allowed_group}")
+              permission("GROUP:hudson.model.Item.Build:${allowed_group}")
+              permission("GROUP:hudson.model.Item.Read:${allowed_group}")
+              permission("GROUP:hudson.model.Item.Cancel:${allowed_group}")
+              permission("GROUP:hudson.model.View.Read:${allowed_group}")
             }
           }
         }

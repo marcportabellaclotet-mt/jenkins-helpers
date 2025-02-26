@@ -80,9 +80,9 @@ yamlFiles.each { file ->
         }
         authorization {
           if ( serviceConfig.owner.find() ) {
-                permission("hudson.model.Item.Build:${serviceConfig.owner}")
-                permission("hudson.model.Item.Read:${serviceConfig.owner}")
-                permission("hudson.model.Item.Cancel:${serviceConfig.owner}")
+                permission("GROUP:hudson.model.Item.Build:${serviceConfig.owner}")
+                permission("GROUP:hudson.model.Item.Read:${serviceConfig.owner}")
+                permission("USER:hudson.model.Item.Cancel:${serviceConfig.owner}")
                 permission("hudson.model.View.Read:${serviceConfig.owner}")
                 permission("hudson.model.Item.Configure:${serviceConfig.owner}")
               }

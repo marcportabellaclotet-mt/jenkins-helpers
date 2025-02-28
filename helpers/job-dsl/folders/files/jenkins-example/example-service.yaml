@@ -6,6 +6,6 @@ example-service:
   allowed_ro_users:
     - allowed-ro-user
   allowed_groups:
-    - allowed-group
+    - administrator
   folder_properties:
     FOLDER_PROPERTY: 'some value'
